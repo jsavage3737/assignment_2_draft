@@ -1,2 +1,2 @@
-board.cpp board_normal.cpp board_torus.cpp test.cpp node.cpp
+board.cpp board_normal.cpp board_torus.cpp board_mirror.cpp test.cpp node.cpp
 // files to compile with g++ for testing

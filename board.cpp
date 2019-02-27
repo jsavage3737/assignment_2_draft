@@ -10,12 +10,23 @@ void board::generate_from_file(){
 
 //generating a board from user input
 void board::generate_from_input(){
-
+  float ran;
   node** temp = new node*[rows]; // creating pointer to array of pointers
   for (int r=0;r<rows;r++){ // interating through array of pointers to initialize concrete arrays
     temp[r] = new node[columns]; // array of anonymous objects
   }
-  board_values = temp;
+
+  // initialize values randomly according to density
+  for (int i=0;i<rows;i++){
+    for (int j=0;j<columns;j++){
+      ran = ((float) rand() / (RAND_MAX)); // generate random number (0,1)
+      // if r is less than density, initialize cell as alive
+      if (ran<density){
+        temp[i][j].setState(true);
+      }
+    }
+  }
+  board_values = temp; // assign class pointer to newly created array
 }
 
 // generates blank temp board
@@ -53,8 +64,10 @@ void board::set_temp(bool isAlive, int row, int column){
 // getters and setters
 void board::setRows(int numRows){rows = numRows;}
 void board::setColumns(int numCols){columns = numCols;}
+void board::setDensity(double newDensity){density=newDensity;}
 int board::getRows(){return rows;}
 int board::getColumns(){return columns;}
+float board::getDensity(){return density;}
 
 // display board to terminal
 void board::printBoard(){
@@ -74,6 +87,7 @@ void board::printBoard(){
   }
 }
 
+// prints the current temporary board (used mostly in testing)
 void board::printTemp(){
   cout << "|"; // add two dashes to account for walls
   for (int c=0; c<columns-1; c++){cout<< "--";} cout << "-|"<< endl; // write top boundary of board

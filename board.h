@@ -14,14 +14,17 @@ namespace hw2{
       void set_temp(bool isAlive, int row, int column);
       void setRows(int numRows);
       void setColumns(int numCols);
+      void setDensity(double newDensity);
       int getRows();
       int getColumns();
+      float getDensity();
       void printBoard();
       void printTemp();
       void applyChanges();
     private:
       int rows;
       int columns;
+      float density;
       // boards stored as pointers to pointer array pointing to node arrays
       node **board_values; // contains current board nodes
       node **temp_board; // nodes are stored here between state updates
