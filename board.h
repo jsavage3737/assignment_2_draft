@@ -1,4 +1,5 @@
 using namespace std;
+
 #include "node.h"
 
 namespace hw2{

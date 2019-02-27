@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "board_normal.h"
+#include "board_torus.h"
 
 using namespace hw2;
 using namespace std;
@@ -10,7 +11,7 @@ int main(int argc, char *argv[]){
   // initializing
   int numRows = 5;
   int numCols = 10;
-  board_normal GameBoard;
+  board_torus GameBoard;
   GameBoard.setRows(numRows);
   GameBoard.setColumns(numCols);
 

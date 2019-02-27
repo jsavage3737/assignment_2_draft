@@ -1,4 +1,9 @@
+// protected inclusion of board.h
+#ifndef BOARD_H
+#define BOARD_H
 #include "board.h"
+#endif
+
 using namespace std;
 
 namespace hw2{
