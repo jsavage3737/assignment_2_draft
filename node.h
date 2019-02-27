@@ -4,7 +4,7 @@ namespace hw2{
   public:
     bool getState();
     bool updateState(int numNeighbors);
-    bool updateState(bool isAlive);
+    bool setState(bool isAlive);
     node(bool isAlive);
     node();
   private:

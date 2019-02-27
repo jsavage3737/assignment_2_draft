@@ -1,25 +1,32 @@
 #include <iostream>
 #include <fstream>
-#include "board.h"
+#include "board_normal.h"
 
 using namespace hw2;
 using namespace std;
 
 int main(int argc, char *argv[]){
 
-  node testNode(true);
-  int rows = 2;
-  int cols = 2;
+  // initializing
+  int numRows = 5;
+  int numCols = 10;
+  board_normal GameBoard;
+  GameBoard.setRows(numRows);
+  GameBoard.setColumns(numCols);
 
-  node board_test[rows][cols];
 
-  for (int x=0; x<cols; x++){
-    for (int y=0; y<rows; y++){
-      cout << board_test[y][x].getState();
-    }
-  }
+  // tuning objects
+  GameBoard.generate_new_temp();
+  GameBoard.generate_from_input();
 
-  board GameBoard;
-  GameBoard.generate_from_input(2,2);
-  cout << GameBoard.access_value(1,1).getState();
+  // testing some functionality
+  GameBoard.access_value(0,1)->setState(true);
+  GameBoard.access_value(0,2)->setState(true);
+  GameBoard.access_value(0,3)->setState(true);
+  GameBoard.printBoard();
+
+  GameBoard.update_board();
+  GameBoard.printBoard();
+  GameBoard.update_board();
+  GameBoard.printBoard();
 }

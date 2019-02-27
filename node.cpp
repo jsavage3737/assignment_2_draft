@@ -1,5 +1,5 @@
 #include "node.h"
-
+#include <iostream> // included for testing
 using namespace hw2;
 using namespace std;
 
@@ -19,17 +19,17 @@ bool node::getState(){
 
 // updates node state based on number of neighbors
 bool node::updateState(int numNeighbors){
-  if (numNeighbors <= 1); // if one or less neighbor
-    return false; // kill node next iteration
-  if (numNeighbors == 2); // if two neighbors
-    return alive; // no change
-  if (numNeighbors == 3);
-    return true;
-  if (numNeighbors == 4);
-    return false;
+  if (numNeighbors < 2){ // if one or less neighbor
+    return false;} // kill node next iteration
+  else if (numNeighbors == 2){ // if two neighbors
+    return alive;} // no change
+  else if (numNeighbors == 3){
+    return true;}
+  else if (numNeighbors >= 4){
+    return false;}
 }
 
 // updates state based on boolean value (used in testing)
-bool node::updateState(bool isAlive){
+bool node::setState(bool isAlive){
   alive = isAlive;
 }

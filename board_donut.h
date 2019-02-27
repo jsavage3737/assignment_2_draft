@@ -2,8 +2,9 @@
 using namespace std;
 
 namespace hw2{
-  class board_donut : public board {
+  class board_donut:public board {
     public:
-    private:
+      int count_neighbors(int row, int column);
+      void update_board();
   };
 }
