@@ -9,10 +9,10 @@
 using namespace hw2;
 using namespace std;
 
-
-
 int main(int argc, char *argv[]){
-  srand(time(NULL));
+
+  // game board functionality testing
+  /*srand(time(NULL));
   // initializing
   int numRows = 5;
   int numCols = 10;
@@ -31,5 +31,10 @@ int main(int argc, char *argv[]){
     cout << step+1 << endl;
     GameBoard.update_board();
     GameBoard.printBoard();
-  }
+  }*/
+
+  // file io testing
+  board board;
+  board.generate_from_file();
+
 }

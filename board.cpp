@@ -1,11 +1,61 @@
 #include "board.h"
 #include <iostream>
+#include <fstream>
 using namespace hw2;
 using namespace std;
 
  // used with fileparser class
 void board::generate_from_file(){
-  return;
+
+  // safely getting user input
+  string filename, line;
+  int r, c;
+  int i=-1;
+
+  while(true) { // continue until valid filename
+    //cout << "Enter the filepath you wish to read: ";
+    //cin >> filename;
+    filename = "test.txt";
+    ifstream FileStream;
+    FileStream.open(filename);
+
+    // first check if file can be loaded
+    if (FileStream.is_open()){
+
+      // read and set board dimensions
+      FileStream >> r;
+      FileStream >> c;
+      setRows(r);
+      setColumns(c);
+
+      // building empty board
+      node** temp = new node*[rows]; // creating pointer to array of pointers
+      for (int x=0;x<rows;x++){ // interating through array of pointers to initialize concrete arrays
+        temp[x] = new node[columns]; // array of anonymous objects
+      }
+      board_values = temp; // assigning new board to object
+
+      // read in cell values and pass to new board
+        while(getline(FileStream,line)){
+        if (line[0] == 'X' || line[0] == '-') { // make sure line is valid
+          for(int j=0; j<getColumns(); j++){ // treating each char as dif column
+            if (line[j]=='X'){set_value(true, i, j);} // if cell from file is alive, set board cell to alive
+          }
+        }
+        i++; // incrementing row
+      }
+
+      FileStream.close();
+    }
+    else{ // tell user if file isn't found
+      cout << "File not found" << endl;
+      cout << "Please try again" << endl;
+    }
+
+
+    printBoard();
+    break;
+  }
 }
 
 //generating a board from user input
@@ -19,7 +69,7 @@ void board::generate_from_input(){
   // initialize values randomly according to density
   for (int i=0;i<rows;i++){
     for (int j=0;j<columns;j++){
-      ran = ((float) rand() / (RAND_MAX)); // generate random number (0,1)
+      ran = ((float)rand()/(RAND_MAX)); // generate random number (0,1)
       // if r is less than density, initialize cell as alive
       if (ran<density){
         temp[i][j].setState(true);
