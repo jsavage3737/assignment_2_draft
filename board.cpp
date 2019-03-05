@@ -12,9 +12,9 @@ void board::generate_from_file(){
   int r, c;
   int i=-1;
 
+  setGeneration(0);
+
   while(true) { // continue until valid filename
-    //cout << "Enter the filepath you wish to read: ";
-    //cin >> filename;
     filename = "test.txt";
     ifstream FileStream;
     FileStream.open(filename);
@@ -46,21 +46,21 @@ void board::generate_from_file(){
       }
 
       FileStream.close();
+      break;
     }
     else{ // tell user if file isn't found
       cout << "File not found" << endl;
       cout << "Please try again" << endl;
     }
-
-
-    printBoard();
-    break;
   }
+  generate_new_temp(); // initializing temp board
 }
 
 //generating a board from user input
 void board::generate_from_input(){
+  setGeneration(0);
   float ran;
+
   node** temp = new node*[rows]; // creating pointer to array of pointers
   for (int r=0;r<rows;r++){ // interating through array of pointers to initialize concrete arrays
     temp[r] = new node[columns]; // array of anonymous objects
@@ -111,48 +111,45 @@ void board::set_temp(bool isAlive, int row, int column){
   temp_board[row][column].setState(isAlive);
 }
 
+void board::update_board(){return;}
+
 // getters and setters
 void board::setRows(int numRows){rows = numRows;}
 void board::setColumns(int numCols){columns = numCols;}
+void board::setGeneration(int numGen){generation = numGen;}
 void board::setDensity(double newDensity){density=newDensity;}
+void board::incrementGeneration(){generation++;}
 int board::getRows(){return rows;}
 int board::getColumns(){return columns;}
+int board::getGeneration(){return generation;}
 float board::getDensity(){return density;}
 
 // display board to terminal
 void board::printBoard(){
-  cout << "|"; // add two dashes to account for walls
-  for (int c=0; c<columns-1; c++){cout<< "--";} cout << "-|"<< endl; // write top boundary of board
-
   for (int r=0; r<rows; r++){ // draw each row
-    cout << "|";
     for (int c=0; c<columns; c++){ // draw each column
-
-      if (access_value(r,c)->getState()){cout << "X|";} // draw x if node is alive
-      else{cout << "O|";}} // draw o if node is dead
-
-    cout << endl << "|"; // start new line with wall
-    for (int c=0; c<columns-1; c++){cout << "--";} // draw divider for "c" values
-    cout << "-|" << endl; // draw final wall and progress to new line
+      if (access_value(r,c)->getState()){cout << "X";} // draw x if node is alive
+      else{cout << "-";}} // draw o if node is dead
+  cout << endl;
   }
+  cout << endl;
 }
 
 // prints the current temporary board (used mostly in testing)
 void board::printTemp(){
-  cout << "|"; // add two dashes to account for walls
-  for (int c=0; c<columns-1; c++){cout<< "--";} cout << "-|"<< endl; // write top boundary of board
-
   for (int r=0; r<rows; r++){ // draw each row
-    cout << "|";
     for (int c=0; c<columns; c++){ // draw each column
-
-      if (access_temp(r,c)->getState()){cout << "X|";} // draw x if node is alive
-      else{cout << "O|";}} // draw o if node is dead
-
-    cout << endl << "|"; // start new line with wall
-    for (int c=0; c<columns-1; c++){cout << "--";} // draw divider for "c" values
-    cout << "-|" << endl; // draw final wall and progress to new line
+      if (access_temp(r,c)->getState()){cout << "X";} // draw x if node is alive
+      else{cout << "-";}  // draw - if node is dead
+    }
+    cout << endl;
   }
+}
+
+// save current board layout to file
+void board::saveBoard(){
+  string save_path;
+  cout << "";
 }
 
 // replace current board with temp and create new temp

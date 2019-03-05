@@ -5,12 +5,11 @@
 #include "board_normal.h"
 #include "board_torus.h"
 #include "board_mirror.h"
-
+#include "game.h"
 using namespace hw2;
 using namespace std;
 
 int main(int argc, char *argv[]){
-
   // game board functionality testing
   /*srand(time(NULL));
   // initializing
@@ -33,8 +32,17 @@ int main(int argc, char *argv[]){
     GameBoard.printBoard();
   }*/
 
+/*
   // file io testing
-  board board;
+  board_mirror board;
   board.generate_from_file();
+  board.update_board();
+  board.printBoard();
+  board.printTemp();*/
+  game game;
+  game.initializeGame();
+
+
+  // main implementation teseting
 
 }
