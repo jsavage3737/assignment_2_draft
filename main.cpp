@@ -14,6 +14,6 @@ int main(int argc, char *argv[]){
   game game;
   game.initializeGame();
   game.runGame();
-  cout << "press enter to leave..."
-  cin.get();
+  cout << "press enter to leave...";
+  cin.get();cin.get();
 }

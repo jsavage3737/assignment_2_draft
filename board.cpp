@@ -150,7 +150,7 @@ void board::printBoard(){
 void board::printBoardToFile(){
   // file object creation and opening file
   ofstream boardFile;
-  boardFile.open (getOutputFilename());
+  boardFile.open(getOutputFilename(),std::ios_base::app);
   if (boardFile.is_open()){
     boardFile << generation << endl;
     for (int r=0; r<rows; r++){ // draw each row
