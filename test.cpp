@@ -41,7 +41,7 @@ int main(int argc, char *argv[]){
   board.printTemp();*/
   game game;
   game.initializeGame();
-
+  game.runGame();
 
   // main implementation teseting
 

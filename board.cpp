@@ -7,6 +7,9 @@ using namespace std;
  // used with fileparser class
 void board::generate_from_file(){
 
+  // establish board is running
+  setRunning(true);
+
   // safely getting user input
   string filename, line;
   int r, c;
@@ -15,7 +18,8 @@ void board::generate_from_file(){
   setGeneration(0);
 
   while(true) { // continue until valid filename
-    filename = "test.txt";
+    cout << "Enter file you wish to read: ";
+    cin>>filename;
     ifstream FileStream;
     FileStream.open(filename);
 
@@ -77,6 +81,8 @@ void board::generate_from_input(){
     }
   }
   board_values = temp; // assign class pointer to newly created array
+  generate_new_temp(); // create a temp
+  setRunning(true); // start the game
 }
 
 // generates blank temp board
@@ -114,18 +120,23 @@ void board::set_temp(bool isAlive, int row, int column){
 void board::update_board(){return;}
 
 // getters and setters
+void board::setRunning(bool isRunning){running=isRunning;}
 void board::setRows(int numRows){rows = numRows;}
 void board::setColumns(int numCols){columns = numCols;}
 void board::setGeneration(int numGen){generation = numGen;}
 void board::setDensity(double newDensity){density=newDensity;}
+void board::setOutputFilename(string newOutputFilename){outputFilename=newOutputFilename;}
 void board::incrementGeneration(){generation++;}
+bool board::getRunning(){return running;}
 int board::getRows(){return rows;}
 int board::getColumns(){return columns;}
 int board::getGeneration(){return generation;}
 float board::getDensity(){return density;}
+string board::getOutputFilename(){return outputFilename;}
 
 // display board to terminal
 void board::printBoard(){
+  cout << generation << endl;
   for (int r=0; r<rows; r++){ // draw each row
     for (int c=0; c<columns; c++){ // draw each column
       if (access_value(r,c)->getState()){cout << "X";} // draw x if node is alive
@@ -135,6 +146,23 @@ void board::printBoard(){
   cout << endl;
 }
 
+// saves board layout to file
+void board::printBoardToFile(){
+  // file object creation and opening file
+  ofstream boardFile;
+  boardFile.open (getOutputFilename());
+  if (boardFile.is_open()){
+    boardFile << generation << endl;
+    for (int r=0; r<rows; r++){ // draw each row
+      for (int c=0; c<columns; c++){ // draw each column
+        if (access_value(r,c)->getState()){boardFile << "X";} // draw x if node is alive
+        else{boardFile << "-";}} // draw o if node is dead
+    boardFile << endl;
+    }
+    boardFile << endl;
+  }
+
+}
 // prints the current temporary board (used mostly in testing)
 void board::printTemp(){
   for (int r=0; r<rows; r++){ // draw each row
@@ -144,12 +172,6 @@ void board::printTemp(){
     }
     cout << endl;
   }
-}
-
-// save current board layout to file
-void board::saveBoard(){
-  string save_path;
-  cout << "";
 }
 
 // replace current board with temp and create new temp

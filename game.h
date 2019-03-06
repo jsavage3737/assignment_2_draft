@@ -14,12 +14,22 @@ namespace hw2{
   class game{
     public:
       void initializeGame();
+      void handleUpdateBoard();
+      void handlePrintBoard();
+      void runGame1();
+      void runGame2();
+      void runGame3();
+      void runGame();
+      bool fromInput;
+      int output_mode, board_type;
       int rows, columns;
+      int inputi;
       float inputf;
+      float newDensity;
       char inputc;
-      board board;
-      bool enter;
-    private:
-
+      board default_board;
+      board_normal board1;
+      board_mirror board2;
+      board_torus board3;
   };
 }
